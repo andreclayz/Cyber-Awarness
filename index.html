@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Cyber Aware | Think Before You Click</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    /* ===== 3D ROTATING LOGO ===== */
+.logo-3d {
+    position: fixed;
+    top: 22px;
+    right: 28px;
+    width: 110px;
+    perspective: 900px;
+    z-index: 50;
+    pointer-events: none;
+}
+
+.logo-3d img {
+    width: 100%;
+    height: auto;
+    transform-style: preserve-3d;
+    animation: spinY 12s linear infinite;
+    filter:
+        drop-shadow(0 0 8px rgba(34,197,94,0.6))
+        drop-shadow(0 0 18px rgba(34,197,94,0.4));
+}
+
+/* 3D ROTATION */
+@keyframes spinY {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+/* RESPONSIVE SCALE */
+@media (max-width: 768px) {
+    .logo-3d {
+        width: 80px;
+        top: 16px;
+        right: 16px;
+    }
+}
+
+:root {
+    --neon: #22c55e;
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+    --bg: #020617;
+}
+
+/* RESET */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #0f172a, #020617);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+/* ================= STARFIELD ================= */
+.starfield {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.star {
+    position: absolute;
+    width: var(--size);
+    height: var(--size);
+    background: transparent;
+    animation:
+        float var(--speed) linear infinite,
+        twinkle var(--twinkle) ease-in-out infinite;
+}
+
+/* STAR SHAPE */
+.star::before {
+    content: "★";
+    position: absolute;
+    inset: 0;
+    font-size: var(--size);
+    color: rgba(255,255,255,0.95);
+    text-shadow:
+        0 0 6px rgba(255,255,255,0.8),
+        0 0 12px rgba(34,197,94,0.8),
+        0 0 24px rgba(34,197,94,0.6),
+        0 0 48px rgba(34,197,94,0.4);
+}
+
+/* FLOATING MOTION */
+@keyframes float {
+    from { transform: translateY(110vh); }
+    to   { transform: translateY(-20vh); }
+}
+
+/* GLITTER / TWINKLE */
+@keyframes twinkle {
+    0%   { opacity: 0.3; }
+    50%  { opacity: 1; }
+    100% { opacity: 0.4; }
+}
+
+/* ================= CONTENT ================= */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 60px 20px;
+}
+
+.hero-content {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+}
+
+.hero h1 {
+    font-size: 44px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: var(--neon);
+    text-shadow: 0 0 18px rgba(34,197,94,0.9);
+}
+
+.hero p {
+    font-size: 18px;
+    color: var(--muted);
+}
+
+.hero-btn {
+    margin-top: 30px;
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #022c22;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 0 30px rgba(34,197,94,0.8);
+}
+
+/* CARD */
+.card {
+    background: rgba(2,6,23,0.8);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 22px;
+    padding: 30px;
+    backdrop-filter: blur(8px);
+    box-shadow:
+        0 0 0 1px rgba(34,197,94,0.15),
+        0 40px 90px rgba(0,0,0,0.85);
+}
+
+/* SIMULATION */
+.sim-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.sim {
+    padding: 22px;
+    border-radius: 16px;
+    background: #020617;
+    border: 1px solid rgba(255,255,255,0.08);
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.sim:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 35px rgba(34,197,94,0.45);
+}
+
+/* FEEDBACK */
+.feedback {
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 14px;
+    display: none;
+}
+
+.safe {
+    border: 1px solid #22c55e;
+    box-shadow: 0 0 25px rgba(34,197,94,0.45);
+}
+
+.risk {
+    border: 1px solid #ef4444;
+    box-shadow: 0 0 25px rgba(239,68,68,0.45);
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+/* RESPONSIVE */
+@media(max-width: 900px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+}
+</style>
+</head>
+
+<body>
+    <!-- ROTATING LOGO -->
+<div class="logo-3d">
+    <img src="Logo-RDM-new-01-2048x1448.png" alt="RDM Logo">
+</div>
+
+
+<!-- STARFIELD -->
+<div class="starfield" id="starfield"></div>
+
+<section class="hero">
+    <div class="hero-content">
+
+        <div>
+            <h1>
+                Think Before You <span>Click</span><br>
+                Cyber Risk Starts With One Decision
+            </h1>
+            <p>
+                Di ruang gelap digital, setiap keputusan meninggalkan jejak cahaya.
+            </p>
+            <a href="#sim" class="hero-btn">Mulai Simulasi</a>
+        </div>
+
+        <div class="card" id="sim">
+            <h2>⚡ Cyber Awareness Simulation</h2>
+            <p style="color: var(--muted); margin-bottom: 20px;">
+                Simulasi edukatif. Tanpa tracking. Tanpa penilaian personal.
+            </p>
+
+            <div class="sim-grid">
+                <div class="sim" onclick="result('phishing')">Phishing Email</div>
+                <div class="sim" onclick="result('usb')">Unknown USB</div>
+                <div class="sim" onclick="result('chat')">Chat Internal</div>
+            </div>
+
+            <div id="feedback" class="feedback"></div>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    Cyber Awareness Program • By Nadya Tasya Nasuhi • Internal Audit PT Rekind Daya Mamuju 
+</footer>
+
+<script>
+/* ===== GENERATE STARS ===== */
+const starfield = document.getElementById("starfield");
+const STAR_COUNT = 120;
+
+for (let i = 0; i < STAR_COUNT; i++) {
+    const star = document.createElement("div");
+    star.className = "star";
+
+    const size = Math.random() * 14 + 8; // BIG & CLEAR
+    const speed = Math.random() * 60 + 40;
+    const twinkle = Math.random() * 4 + 2;
+
+    star.style.setProperty("--size", size + "px");
+    star.style.setProperty("--speed", speed + "s");
+    star.style.setProperty("--twinkle", twinkle + "s");
+
+    star.style.left = Math.random() * 100 + "vw";
+    star.style.top = Math.random() * 100 + "vh";
+
+    starfield.appendChild(star);
+}
+
+/* ===== SIMULATION FEEDBACK ===== */
+function result(type) {
+    const fb = document.getElementById("feedback");
+    fb.style.display = "block";
+
+    if (type === "phishing") {
+        fb.className = "feedback risk";
+        fb.innerHTML = "<strong>HIGH RISK</strong><br>Email meminta kredensial adalah phishing.";
+    }
+    if (type === "usb") {
+        fb.className = "feedback risk";
+        fb.innerHTML = "<strong>LATENT THREAT</strong><br>USB anonim berisiko malware.";
+    }
+    if (type === "chat") {
+        fb.className = "feedback safe";
+        fb.innerHTML = "<strong>GOOD DECISION</strong><br>OTP tidak pernah dibagikan.";
+    }
+}
+</script>
+
+</body>
+</html>
